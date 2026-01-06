@@ -19,5 +19,5 @@ variable "app_name" {
 }
 
 variable "app_dotnet_version" {
- type =  string
+  type = string
 }
