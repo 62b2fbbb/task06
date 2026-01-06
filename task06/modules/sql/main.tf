@@ -4,7 +4,7 @@
 #random_password
 #key_vault_secret
 
-resource "random_password" "sql_admin_pass" {
+resource "random_password" "pass" {
   length           = 16
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
