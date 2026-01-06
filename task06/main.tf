@@ -29,4 +29,4 @@ module "SQLserver" {
   kv_rg_name                = var.kv_rg_name
   kv_name                   = var.kv_name
   allowed_ip_address        = var.allowed_ip_address
-}
+} 

@@ -10,13 +10,37 @@ resource "random_password" "sql_admin_pass" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
+data "azurerm_key_vault" "kv" {
+  name                = var.kv_name
+  resource_group_name = var.kv_rg_name
+}
+
+resource "random_string" "user" {
+  length  = 8
+  special = false
+  upper   = false
+  numeric = false
+}
+
+resource "azurerm_key_vault_secret" "sql_login" {
+  name         = var.sql_admin_secret_name
+  value        = "adm${random_string.user.result}"
+  key_vault_id = data.azurerm_key_vault.kv.id
+}
+
+resource "azurerm_key_vault_secret" "sql_pass" {
+  name         = var.sql_admin_secret_password
+  value        = random_password.pass.result
+  key_vault_id = data.azurerm_key_vault.kv.id
+}
+
 resource "azurerm_mssql_server" "SQLserver" {
   name                         = var.name
   resource_group_name          = var.rg_name
   location                     = var.rg_loc
   version                      = "12.0"
-  administrator_login          = var.sql_admin_secret_name
-  administrator_login_password = var.sql_admin_secret_password
+  administrator_login          = azurerm_key_vault_secret.sql_login.value
+  administrator_login_password = azurerm_key_vault_secret.sql_pass.value
   minimum_tls_version          = "1.2"
 }
 
@@ -28,7 +52,7 @@ resource "azurerm_mssql_firewall_rule" "fw" {
 
 }
 
-resource "azurerm_mssql_database" "example" {
+resource "azurerm_mssql_database" "db" {
   name         = var.sql_db_name
   server_id    = azurerm_mssql_server.SQLserver.id
   collation    = "SQL_Latin1_General_CP1_CI_AS"
@@ -47,8 +71,3 @@ resource "azurerm_mssql_database" "example" {
   }
 }
 
-resource "azurerm_key_vault_secret" "KeyVault" {
-  name         = var.kv_name
-  value        = "szechuan"
-  key_vault_id = azurerm_key_vault.KeyVault.id
-}
