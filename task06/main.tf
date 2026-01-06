@@ -7,12 +7,13 @@ resource "azurerm_resource_group" "rg" {
 module "webapp" {
   source = "./modules/webapp"
 
-  rg_name            = azurerm_resource_group.rg.name
-  rg_loc             = azurerm_resource_group.rg.location
-  asp_name           = local.asp_name
-  asp_sku            = var.asp_sku
-  app_name           = local.app_name
-  app_dotnet_version = var.app_dotnet_version
+  rg_name               = azurerm_resource_group.rg.name
+  rg_loc                = azurerm_resource_group.rg.location
+  asp_name              = local.asp_name
+  asp_sku               = var.asp_sku
+  app_name              = local.app_name
+  app_dotnet_version    = var.app_dotnet_version
+  sql_connection_string = module.SQLserver.sql_connection_string
 }
 
 module "SQLserver" {

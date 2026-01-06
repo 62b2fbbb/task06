@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "asp" {
   resource_group_name = var.rg_name
   location            = var.rg_loc
   os_type             = "Linux"
-  sku_name            = "B1"
+  sku_name            = var.asp_sku
 }
 
 resource "azurerm_linux_web_app" "linuxwebapp" {
@@ -15,5 +15,11 @@ resource "azurerm_linux_web_app" "linuxwebapp" {
     application_stack {
       dotnet_version = var.app_dotnet_version
     }
+  }
+
+  connection_string {
+    name  = "MyDbConnection"
+    type  = "SQLAzure"
+    value = var.sql_connection_string
   }
 }

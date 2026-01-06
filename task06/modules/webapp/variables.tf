@@ -27,3 +27,8 @@ variable "app_dotnet_version" {
   type        = string
   description = "The .NET version for the application stack."
 }
+
+variable "sql_connection_string" {
+  type      = string
+  sensitive = true
+}
