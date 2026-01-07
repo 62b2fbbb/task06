@@ -25,8 +25,3 @@ resource "azurerm_linux_web_app" "app" {
     value = var.sql_connection_string
   }
 }
-
-# Output для hostname (важливо для чекера)
-output "app_hostname" {
-  value = azurerm_linux_web_app.app.default_hostname
-}
