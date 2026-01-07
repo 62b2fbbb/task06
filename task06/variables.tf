@@ -78,3 +78,11 @@ variable "allowed_ip_address" {
   description = "The public IP address allowed to access the SQL Server through the firewall."
 }
 
+variable "tags" {
+  type        = map(string)
+  description = "Tags for resources"
+  default = {
+    CreatedBy   = "zakhar@example.com"
+    Environment = "Lab"
+  }
+}

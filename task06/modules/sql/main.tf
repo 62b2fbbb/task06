@@ -19,12 +19,14 @@ resource "azurerm_key_vault_secret" "sql_login" {
   name         = var.sql_admin_secret_name
   value        = "admuser"
   key_vault_id = data.azurerm_key_vault.kv.id
+  tags         = var.tags
 }
 
 resource "azurerm_key_vault_secret" "sql_pass" {
   name         = var.sql_admin_secret_password
   value        = random_password.pass.result
   key_vault_id = data.azurerm_key_vault.kv.id
+  tags         = var.tags
 }
 
 resource "azurerm_mssql_server" "srv" {
@@ -35,6 +37,8 @@ resource "azurerm_mssql_server" "srv" {
   administrator_login          = azurerm_key_vault_secret.sql_login.value
   administrator_login_password = azurerm_key_vault_secret.sql_pass.value
   minimum_tls_version          = "1.2"
+  tags                         = var.tags
+
 }
 
 resource "azurerm_mssql_firewall_rule" "fw" {
@@ -61,9 +65,7 @@ resource "azurerm_mssql_database" "db" {
   sku_name     = var.sql_sku
   enclave_type = "VBS"
 
-  tags = {
-    foo = "bar"
-  }
+  tags = var.tags
 
   # prevent the possibility of accidental data loss
   lifecycle {

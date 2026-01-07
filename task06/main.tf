@@ -1,6 +1,7 @@
 resource "azurerm_resource_group" "rg" {
   name     = local.rg_name
   location = "North Europe"
+  tags     = var.tags
 }
 
 module "webapp" {
@@ -13,6 +14,7 @@ module "webapp" {
   app_name              = local.app_name
   app_dotnet_version    = var.app_dotnet_version
   sql_connection_string = module.SQLserver.sql_connection_string
+  tags                  = var.tags
 }
 
 module "SQLserver" {
@@ -30,4 +32,5 @@ module "SQLserver" {
   kv_rg_name                = var.kv_rg_name
   kv_name                   = var.kv_name
   allowed_ip_address        = var.allowed_ip_address
+  tags                      = var.tags
 }

@@ -4,6 +4,7 @@ resource "azurerm_service_plan" "asp" {
   location            = var.rg_loc
   os_type             = "Linux"
   sku_name            = var.asp_sku
+  tags                = var.tags
 }
 
 # Azure Linux Web Application
@@ -24,4 +25,6 @@ resource "azurerm_linux_web_app" "app" {
     type  = "SQLAzure"
     value = var.sql_connection_string
   }
+  tags = var.tags
+
 }

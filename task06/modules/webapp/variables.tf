@@ -33,3 +33,7 @@ variable "sql_connection_string" {
   sensitive   = true
   description = "Smth"
 }
+
+variable "tags" {
+  type = map(string)
+}
