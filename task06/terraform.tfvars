@@ -1,5 +1,5 @@
 # --- General Config ---
-location      = "northeurope"        # Найближчий і найдешевший для нас регіон
+location      = "North Europe"       # Найближчий і найдешевший для нас регіон
 student_email = "zakhar@example.com" # Для тегів
 
 # --- Naming Prefixes (щоб імена були унікальні) ---
