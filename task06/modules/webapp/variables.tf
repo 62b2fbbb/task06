@@ -30,8 +30,8 @@ variable "app_dotnet_version" {
 
 variable "sql_connection_string" {
   type        = string
+  description = "Connection string for the SQL Database"
   sensitive   = true
-  description = "Smth"
 }
 
 variable "tags" {

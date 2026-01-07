@@ -9,8 +9,8 @@ output "sql_admin_password_secret_id" {
 }
 
 output "sql_connection_string" {
-  description = "Connection string for SQL Database in ADO.NET format"
-  value       = "Server=tcp:${azurerm_mssql_server.srv.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.db.name};Persist Security Info=False;User ID=${azurerm_key_vault_secret.sql_login.value};Password=${azurerm_key_vault_secret.sql_pass.value};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  description = "Connection string for SQL Database"
+  value       = "Server=tcp:${azurerm_mssql_server.srv.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.db.name};Persist Security Info=False;User ID=admuser;Password=${random_password.pass.result};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   sensitive   = true
 }
 
