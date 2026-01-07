@@ -38,6 +38,5 @@ app_dotnet_version = "8.0"                    # Або v8.0, залежить в
 allowed_ip_address = "18.153.146.156"
 
 tags = {
-  CreatedBy   = "zakhar@example.com"
-  Environment = "Lab"
+  Creator = "zakhar_saprun@epam.com"
 }
