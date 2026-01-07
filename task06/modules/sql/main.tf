@@ -16,14 +16,14 @@ resource "random_password" "pass" {
 }
 
 resource "azurerm_key_vault_secret" "sql_login" {
-  name         = var.sql_admin_secret_name
+  name         = "sql-admin-name"
   value        = "admuser"
   key_vault_id = data.azurerm_key_vault.kv.id
   tags         = var.tags
 }
 
 resource "azurerm_key_vault_secret" "sql_pass" {
-  name         = var.sql_admin_secret_password
+  name         = "sql-admin-password"
   value        = random_password.pass.result
   key_vault_id = data.azurerm_key_vault.kv.id
   tags         = var.tags
